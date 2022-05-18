@@ -48,9 +48,14 @@ openFileLabel.place(relx=0.32, rely=0.21)
 openFileBar = tk.Frame(root, bg="#BFBFBF")
 openFileBar.place(relwidth=0.5, relheight=0.03, relx=0.43, rely=0.21)
 
-#Shows the name of the file
-showOpenFile = tk.Label(openFileBar, bg="#BFBFBF", text=fileName)
-showOpenFile.pack()
+#If there was a file open last session it writes it on the screen
+try:
+    #Shows the name of the file
+    showOpenFile = tk.Label(openFileBar, bg="#BFBFBF", text=fileName)
+    showOpenFile.pack()
+except:
+    showOpenFile = tk.Label(openFileBar, bg="#BFBFBF", text="There is no Open File")
+    showOpenFile.pack()
 
 #Runs the app
 root.mainloop()
