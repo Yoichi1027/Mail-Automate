@@ -27,11 +27,14 @@ def readFile():
 def login():
     userMail = mailEntry.get()
     userPass = passEntry.get()
-    print(userMail, userPass)
+    
     #Stores the data in login.txt
     with open('login.txt', 'w') as f:
         f.write(userMail + ',')
         f.write(userPass)
+    
+    #Tries to log in
+    accLogin()
 
 #Loads save.txt
 if os.path.isfile('save.txt'):
@@ -68,7 +71,7 @@ except:
     showOpenFile.pack()
 
 #Creates the login button
-loginButton = tk.Button(root, text="Login", bg="#BFBFBF", padx=20, pady=5, command=accLogin)
+loginButton = tk.Button(root, text="Login", bg="#BFBFBF", padx=20, pady=5, command=login)
 loginButton.place(relx=0.1, rely=0.3, relwidth=0.2)
 
 #Creates the email and password entrys
