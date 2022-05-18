@@ -1,7 +1,7 @@
-from genericpath import exists
 import tkinter as tk
 from tkinter import filedialog, Canvas
 import os
+from login import accLogin
 
 root = tk.Tk()
 
@@ -24,11 +24,14 @@ def readFile():
         f.write(fileName)
 
 #Defines a function to read mail and password entrys
-def emailConfirm():
+def login():
     userMail = mailEntry.get()
-
-def passConfirm():
     userPass = passEntry.get()
+    print(userMail, userPass)
+    #Stores the data in login.txt
+    with open('login.txt', 'w') as f:
+        f.write(userMail + ',')
+        f.write(userPass)
 
 #Loads save.txt
 if os.path.isfile('save.txt'):
@@ -64,11 +67,9 @@ except:
     showOpenFile = tk.Label(openFileBar, bg="#BFBFBF", text="There is no Open File")
     showOpenFile.pack()
 
-#Creates the email and password confirm button
-mailButton = tk.Button(root, text="Confirm Email", bg="#BFBFBF", padx=20, pady=5, command=emailConfirm)
-mailButton.place(relx=0.1, rely=0.3, relwidth=0.2)
-passButton = tk.Button(root, text="Confirm Password", bg="#BFBFBF", padx=20, pady=5, command=passConfirm)
-passButton.place(relx=0.1, rely=0.4, relwidth=0.2)
+#Creates the login button
+loginButton = tk.Button(root, text="Login", bg="#BFBFBF", padx=20, pady=5, command=accLogin)
+loginButton.place(relx=0.1, rely=0.3, relwidth=0.2)
 
 #Creates the email and password entrys
 mailLabel = tk.Label(root, bg="#4C4C4C", fg="white", text="Email:")
