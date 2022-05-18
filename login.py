@@ -18,4 +18,4 @@ def accLogin():
         server.login(userMail, userPass)
         print('Logged in sucessfully')
     except:
-        print('Email credentials are wrong or we are not allowed to login on it')
+        print('Email credentials are wrong or we are not allowed to login')
