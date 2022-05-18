@@ -84,5 +84,9 @@ passLabel.place(relx=0.32, rely=0.41)
 passEntry = tk.Entry(width=50, bg="#BFBFBF")
 passEntry.place(relx=0.43, rely=0.41, relwidth=0.5, relheight=0.03)
 
+#Creates the send email button
+sendMailBut = tk.Button(root, text="Send Emails", bg="#BFBFBF", padx=20, pady=5)
+sendMailBut.place(rely=0.8, relx=0.375, relwidth=0.25)
+
 #Runs the app
 root.mainloop()
