@@ -1,7 +1,9 @@
 import tkinter as tk
 from tkinter import filedialog, Canvas
 import os
-from login import accLogin
+from sendMail import sendEmails
+import pandas as pd
+import datetime
 
 root = tk.Tk()
 
@@ -33,8 +35,36 @@ def login():
         f.write(userMail + ',')
         f.write(userPass)
     
-    #Tries to log in
-    accLogin()
+    #Reads the date
+    date = datetime.date.today()
+    
+    xl= pd.ExcelFile(fileName)
+    
+    mail_list = []
+
+    #Sends happy birthday mails
+    for e in xl.sheet_names:
+        if int(e) == date.month:
+            excel_file = fileName
+            df = pd.read_excel(excel_file, sheet_name=e)
+            for i, row in df.iterrows():
+                dia = df.at[i, 'Dia']
+                if int(dia) == date.day:
+                    nome = df.at[i, 'Nome']
+                    dia = df.at[i, 'Dia']
+                    mes = df.at[i, 'Mes']
+                    cmail = df.at[i, 'Email']
+                    folio = df.at[i, 'Fólio']
+                    if cmail not in mail_list:
+                        msg = "<b>A Coutada</b></br>Desde já lhe endereçamos os nossos mais sinceros parabéns e por esse facto o <b>Hotel Rural - A Coutada</b>, tem todo o gosto em lhe oferecer um desconto de 10% na sua próxima reserva. </br>Ao efectuar a mesma, agradecemos que mencione o código que lhe foi atribuido abaixo.</br><b>Código:</b> {0} </br></br><b>Contactos:</b></br>Telefone: +351262757050</br>Email: info@coutada-turismo.com</br></br>Com os votos de um feliz aniversário, </br><b>A Coutada</b>".format(
+                            str(folio))
+
+                        sendEmails(cmail, msg)
+                        mail_list.append(cmail)
+                    else:
+                        print("Email não enviado para:", nome)
+                        print("Email repetido.")
+    
 
 #Loads save.txt
 if os.path.isfile('save.txt'):
@@ -70,10 +100,6 @@ except:
     showOpenFile = tk.Label(openFileBar, bg="#BFBFBF", text="There is no Open File")
     showOpenFile.pack()
 
-#Creates the login button
-loginButton = tk.Button(root, text="Login", bg="#BFBFBF", padx=20, pady=5, command=login)
-loginButton.place(relx=0.1, rely=0.3, relwidth=0.2)
-
 #Creates the email and password entrys
 mailLabel = tk.Label(root, bg="#4C4C4C", fg="white", text="Email:")
 mailLabel.place(relx=0.32, rely=0.31)
@@ -85,7 +111,7 @@ passEntry = tk.Entry(width=50, bg="#BFBFBF")
 passEntry.place(relx=0.43, rely=0.41, relwidth=0.5, relheight=0.03)
 
 #Creates the send email button
-sendMailBut = tk.Button(root, text="Send Emails", bg="#BFBFBF", padx=20, pady=5)
+sendMailBut = tk.Button(root, text="Send Emails", bg="#BFBFBF", padx=20, pady=5, command=login)
 sendMailBut.place(rely=0.8, relx=0.375, relwidth=0.25)
 
 #Runs the app
