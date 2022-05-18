@@ -1,7 +1,6 @@
 from genericpath import exists
 import tkinter as tk
-from tkinter import filedialog, Canvas, Text
-from turtle import bgcolor, width
+from tkinter import filedialog, Canvas
 import os
 
 root = tk.Tk()
@@ -24,6 +23,13 @@ def readFile():
     with open('save.txt', 'w') as f:
         f.write(fileName)
 
+#Defines a function to read mail and password entrys
+def emailConfirm():
+    userMail = mailEntry.get()
+
+def passConfirm():
+    userPass = passEntry.get()
+
 #Loads save.txt
 if os.path.isfile('save.txt'):
     with open('save.txt', 'r') as f:
@@ -40,7 +46,7 @@ topBar.place(relheight=0.1, relwidth=1)
 
 #Creates a Button to Open Files
 openFileButton = tk.Button(root, bg="#BFBFBF", text="Open File", padx=20, pady=5, command=readFile)
-openFileButton.place(relx=0.1, rely=0.2)
+openFileButton.place(relx=0.1, rely=0.2, relwidth=0.2)
 
 #Creates the bar to show the Open File
 openFileLabel = tk.Label(root, bg="#4C4C4C", fg="white", text="Open File:")
@@ -57,6 +63,22 @@ try:
 except:
     showOpenFile = tk.Label(openFileBar, bg="#BFBFBF", text="There is no Open File")
     showOpenFile.pack()
+
+#Creates the email and password confirm button
+mailButton = tk.Button(root, text="Confirm Email", bg="#BFBFBF", padx=20, pady=5, command=emailConfirm)
+mailButton.place(relx=0.1, rely=0.3, relwidth=0.2)
+passButton = tk.Button(root, text="Confirm Password", bg="#BFBFBF", padx=20, pady=5, command=passConfirm)
+passButton.place(relx=0.1, rely=0.4, relwidth=0.2)
+
+#Creates the email and password entrys
+mailLabel = tk.Label(root, bg="#4C4C4C", fg="white", text="Email:")
+mailLabel.place(relx=0.32, rely=0.31)
+mailEntry = tk.Entry(width=50, bg="#BFBFBF")
+mailEntry.place(relx=0.43, rely=0.31, relwidth=0.5, relheight=0.03)
+passLabel = tk.Label(root, bg="#4C4C4C", fg="white", text="Pass:")
+passLabel.place(relx=0.32, rely=0.41)
+passEntry = tk.Entry(width=50, bg="#BFBFBF")
+passEntry.place(relx=0.43, rely=0.41, relwidth=0.5, relheight=0.03)
 
 #Runs the app
 root.mainloop()
