@@ -1,7 +1,7 @@
 from genericpath import exists
 import tkinter as tk
 from tkinter import filedialog, Canvas, Text
-from turtle import width
+from turtle import bgcolor, width
 import os
 
 root = tk.Tk()
@@ -22,7 +22,7 @@ def readFile():
 
     #Saves the loaded file into save.txt
     with open('save.txt', 'w') as f:
-        f.write(fileName + ',')
+        f.write(fileName)
 
 #Loads save.txt
 if os.path.isfile('save.txt'):
@@ -30,8 +30,9 @@ if os.path.isfile('save.txt'):
         fileName = f.read()
 
 #Creates App Canvas (background)
-canvas = tk.Canvas(root, height=800, width=600, bg ="#4C4C4C")
-canvas.pack()
+root.geometry('600x800')
+root.config(bg="#4C4C4C")
+root.resizable(width=0, height=0)
 
 #Creates the Bar at the Top
 topBar = tk.Frame(root, bg="#171717")
